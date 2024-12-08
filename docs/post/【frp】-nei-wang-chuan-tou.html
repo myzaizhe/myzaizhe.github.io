@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    <script src='https://blog.meekdai.com/Gmeek/plugins/GmeekVercount.js'></script>
+    <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="1. **FRP简介**
+
+   - frp 是一款高性能的反向代理应用，专注于内网穿透。">
+<meta property="og:title" content="【frp】内网穿透">
+<meta property="og:description" content="1. **FRP简介**
+
+   - frp 是一款高性能的反向代理应用，专注于内网穿透。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://myzaizhe.github.io/post/%E3%80%90frp%E3%80%91-nei-wang-chuan-tou.html">
+<meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
+<title>【frp】内网穿透</title>
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">【frp】内网穿透</h1>
+<div class="title-right">
+    <a href="https://myzaizhe.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/myzaizhe/myzaizhe.github.io/issues/3" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><ol>
+<li>
+<p><strong>FRP简介</strong></p>
+<ul>
+<li>frp 是一款高性能的反向代理应用，专注于内网穿透。它支持多种协议，包括 TCP、UDP、HTTP、HTTPS 等，并且具备 P2P 通信功能。使用 frp，您可以安全、便捷地将内网服务暴露到公网，通过拥有公网 IP 的节点进行中转。</li>
+</ul>
+</li>
+<li>
+<p><strong>基本工作原理</strong></p>
+<ul>
+<li>FRP由客户端（frpc）和服务器端（frps）组成。客户端运行在内网机器上，它负责和运行在具有公网IP服务器上的服务器端进行通信。客户端将内网服务的请求发送给服务器端，服务器端再将请求转发到公网上，从而实现外部网络访问内网服务。</li>
+</ul>
+</li>
+<li>
+<p><strong>安装与配置</strong></p>
+<ul>
+<li>
+<p><strong>服务器端（frps）配置</strong></p>
+<ul>
+<li>
+<p>首先从FRP官方网站（<a href="https://github.com/fatedier/frp/releases%EF%BC%89%E4%B8%8B%E8%BD%BD%E9%80%82%E5%90%88%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E7%9A%84frps%E7%A8%8B%E5%BA%8F%E3%80%82">https://github.com/fatedier/frp/releases）下载适合服务器操作系统的frps程序。</a></p>
+</li>
+<li>
+<p>解压frp压缩包</p>
+<pre class="notranslate"><code class="notranslate">tar -zxvf frp_0.61.0_linux_amd64.tar.gz
+</code></pre>
+</li>
+<li>
+<p>编辑服务器端配置文件（frps.toml），以下是一个简单的配置示例：</p>
+<div class="highlight highlight-source-ini"><pre class="notranslate"><span class="pl-k">bindPort</span> = 7000
+<span class="pl-k">vhostHTTPPort</span> = 8080
+<span class="pl-k">auth.token</span> = <span class="pl-s"><span class="pl-pds">"</span>abcd<span class="pl-pds">"</span></span></pre></div>
+<p><code class="notranslate">bind_port</code>:服务端监听端口，默认值为 7000。</p>
+<p><code class="notranslate">vhost_http_port</code>:HTTP 类型代理监听的端口，启用后才能支持 HTTP 类型的代理。</p>
+<p><code class="notranslate">auth.method </code> : 鉴权方式，可选值为 token 或 oidc，默认为 token。</p>
+<p><code class="notranslate">auth.token</code>:在 method 为 token 时生效，客户端需要设置一样的值才能鉴权通过。</p>
+</li>
+<li>
+<p>运行服务器端程序<code class="notranslate">./frps -c frps.ini</code>启动服务器。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>客户端A（frpc）配置</strong></p>
+<ul>
+<li>
+<p>同样从官方网站下载适合内网操作系统的frpc程序。</p>
+</li>
+<li>
+<p>编辑客户端配置文件（frpc.toml），例如要穿透内网的一个Web服务，配置可能如下：</p>
+<div class="highlight highlight-source-ini"><pre class="notranslate"><span class="pl-k">serverAddr</span> = <span class="pl-s"><span class="pl-pds">"</span>x.x.x.x<span class="pl-pds">"</span></span>
+<span class="pl-k">serverPort</span> = 7000
+
+<span class="pl-k">auth.token</span> = <span class="pl-s"><span class="pl-pds">"</span>abcd<span class="pl-pds">"</span></span> 	<span class="pl-c"><span class="pl-c">#</span> 与frps配置的令牌相同</span>
+
+<span class="pl-en">[[proxies]</span>]
+<span class="pl-k">name</span> = <span class="pl-s"><span class="pl-pds">"</span>web<span class="pl-pds">"</span></span>
+<span class="pl-k">type</span> = <span class="pl-s"><span class="pl-pds">"</span>http<span class="pl-pds">"</span></span>	
+<span class="pl-k">localIP</span> = <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>
+<span class="pl-k">localPort</span> = 80						
+<span class="pl-k">customDomains</span> = [<span class="pl-s"><span class="pl-pds">"</span>x.x.x.x<span class="pl-pds">"</span></span>]</pre></div>
+<p><code class="notranslate">serverAddr</code>:连接服务端的地址。</p>
+<p><code class="notranslate">serverPort</code>:连接服务端的端口，默认为 7000。</p>
+<p><code class="notranslate">name</code>:代理名称。</p>
+<p><code class="notranslate">type</code>代理类型，可选值为 tcp, udp, http, https, tcpmux, stcp, sudp, xtcp。</p>
+<p><code class="notranslate">localIP</code>:被代理的本地服务 IP，默认为 127.0.0.1。</p>
+<p><code class="notranslate">localPort</code>:被代理的本地服务端口。</p>
+<p><code class="notranslate">customDomains</code>:自定义域名列表（也可以使用服务端的ip）。</p>
+</li>
+<li>
+<p>运行客户端程序<code class="notranslate">./frpc -c frpc.ini</code>启动客户端。</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>客户端B（frpc）配置</strong></p>
+<ul>
+<li>
+<p>同样从官方网站下载适合内网操作系统的frpc程序。</p>
+</li>
+<li>
+<p>编辑客户端配置文件（frpc.toml），例如要穿透内网的一个Web服务，配置可能如下：</p>
+<div class="highlight highlight-source-ini"><pre class="notranslate"><span class="pl-k">serverAddr</span> = <span class="pl-s"><span class="pl-pds">"</span>x.x.x.x<span class="pl-pds">"</span></span>
+<span class="pl-k">serverPort</span> = 7000
+
+<span class="pl-k">auth.token</span> = <span class="pl-s"><span class="pl-pds">"</span>abcd<span class="pl-pds">"</span></span> 	<span class="pl-c"><span class="pl-c">#</span> 与frps配置的令牌相同</span>
+
+<span class="pl-en">[[proxies]</span>]
+<span class="pl-k">name</span> = <span class="pl-s"><span class="pl-pds">"</span>web2<span class="pl-pds">"</span></span>
+<span class="pl-k">type</span> = <span class="pl-s"><span class="pl-pds">"</span>tcp<span class="pl-pds">"</span></span>	
+<span class="pl-k">localIP</span> = <span class="pl-s"><span class="pl-pds">"</span>127.0.0.1<span class="pl-pds">"</span></span>
+<span class="pl-k">localPort</span> = 80						
+<span class="pl-k">remotePort</span> = 8081</pre></div>
+<p><code class="notranslate">remotePort</code>:服务端绑定的端口，用户访问服务端此端口的流量会被转发到对应的本地服务。</p>
+</li>
+<li>
+<p>运行客户端程序<code class="notranslate">./frpc -c frpc.ini</code>启动客户端。</p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>linux 后台运行</strong></p>
+<ul>
+<li>
+<p>运行frp服务端</p>
+<pre class="notranslate"><code class="notranslate">nohup ./frps -c ./frps.toml &gt;/dev/null 2&gt;&amp;1 &amp;
+</code></pre>
+</li>
+<li>
+<p>关闭</p>
+<div class="highlight highlight-source-perl"><pre class="notranslate">ps -aux|<span class="pl-c1">grep</span> frp
+
+<span class="pl-c1">kill</span> -9 进程号</pre></div>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>注意事项</strong></p>
+<ul>
+<li>安全问题：由于FRP可以将内网服务暴露出来，所以要注意安全防护。例如，合理配置访问权限，避免将敏感服务随意暴露，设置好防火墙规则等。</li>
+<li>网络稳定性：FRP的穿透效果可能会受到网络环境的影响。如果服务器端或客户端网络不稳定，可能会导致服务中断或访问延迟等问题。</li>
+<li>域名解析：如果使用域名来访问穿透后的服务，要确保域名正确解析到服务器端的公网IP地址，并且配置好相关的域名绑定规则。</li>
+</ul>
+</li>
+</ol></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://myzaizhe.github.io">Blog Title</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","myzaizhe/myzaizhe.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
+
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
+
+</script>
+
+
+</html>
