@@ -1,0 +1,70 @@
+1. **安装与初始化相关命令**
+   - **wsl --install**
+     - **作用**：在Windows系统上安装Windows Subsystem for Linux（WSL）以及默认的Linux发行版（通常是Ubuntu）。这是一种快速开始使用WSL的方式，会自动下载和安装必要的组件。
+     - **示例**：在具有管理员权限的命令提示符或PowerShell中运行`wsl --install`来安装WSL。
+2. **发行版管理命令**
+   - **wsl --list - -online**
+     - **作用**：列出在Windows应用商店中可用的WSL发行版。这可以帮助你选择想要安装的其他Linux发行版。
+     - **示例**：`wsl --list - -online`会显示所有可以通过商店安装的WSL发行版名称、版本等信息。
+   - **wsl --import <发行版名称> <安装路径> <文件系统文件路径>**
+     - **作用**：从自定义的文件系统文件（如.tar文件）导入一个WSL发行版。这对于在没有网络连接或者使用自定义镜像的情况下安装发行版很有用。
+     - **示例**：`wsl --import MyCustomUbuntu "C:\WSL\MyCustomUbuntu" "C:\WSL\Ubuntu.tar"`可以将名为`MyCustomUbuntu`的发行版导入到指定路径，其文件系统数据来自`Ubuntu.tar`文件。
+   - **wsl --export <发行版名称> <导出文件路径>**
+     - **作用**：将指定的WSL发行版导出为一个.tar文件，可用于备份或在其他机器上安装相同的发行版。
+     - **示例**：`wsl --export Ubuntu "C:\WSL\UbuntuBackup.tar"`将Ubuntu发行版导出为一个名为`UbuntuBackup.tar`的备份文件。
+   - **wsl -l（或wsl --list）**
+     - **作用**：列出已安装的WSL发行版。
+     - **示例**：`wsl -l -v`可以详细列出所有已安装的WSL发行版，包括状态（正在运行或已停止）、版本等信息。
+   - **wsl -s（或wsl --set - default）**
+     - **作用**：设置默认的WSL发行版。当在命令提示符中只输入`wsl`时，会启动这个默认的发行版。
+     - **示例**：`wsl -s Ubuntu - 20.04`将Ubuntu - 20.04设置为默认的WSL发行版。
+   - **wsl -t（或wsl --terminate）**
+     - **作用**：终止指定的WSL发行版。这在发行版无响应或需要强制关闭时很有用。
+     - **示例**：`wsl -t Debian`会终止Debian这个WSL发行版。
+   - **wsl --shutdown**
+     - **作用**：关闭所有正在运行的WSL发行版。
+3. **运行和交互命令**
+   - **wsl - -distribution <发行版名称> - -user <用户名>**
+     - **作用**：以指定的用户身份启动特定的WSL发行版。这在需要以非默认用户登录到WSL发行版时很有用。
+     - **示例**：`wsl - -distribution Ubuntu - -user myuser`会以`myuser`用户身份启动Ubuntu发行版。
+   - **wsl - -exec <发行版名称> <命令>**
+     - **作用**：在指定的WSL发行版中执行一个命令，而不启动完整的交互式会话。这对于自动化脚本或在WSL中运行单个任务很方便。
+     - **示例**：`wsl - -exec Ubuntu "apt - get update"`会在Ubuntu发行版中执行`apt - get update`命令。
+4. **配置和调整命令**
+   - **wsl - -set - version <发行版名称> <版本号>**
+     - **作用**：设置指定WSL发行版的WSL版本（WSL 1或WSL 2）。WSL 2通常提供更好的性能和功能，但可能需要更多的系统资源。
+     - **示例**：`wsl - -set - version Ubuntu 2`将Ubuntu发行版设置为WSL 2版本。
+   - **wsl - -config**
+     - **作用**：用于配置WSL的全局设置，如默认的WSL版本、是否自动更新等。
+     - **示例**：可以通过`wsl - -config`相关的参数来调整WSL的整体行为。
+5. **在WSL发行版内部操作命令（进入WSL后使用）**
+   - **apt-get（适用于Debian、Ubuntu等基于Debian的发行版）或yum（适用于CentOS、Fedora等基于Red Hat的发行版）**
+     - **作用**：用于在相应的Linux发行版中安装、更新和删除软件包。
+     - **示例（Ubuntu）**：
+       - 安装软件包：`sudo apt - get install nginx`安装Nginx服务器。
+       - 更新软件包列表：`sudo apt - get update`。
+       - 升级已安装的软件包：`sudo apt - get upgrade`。
+   - **dpkg -l（适用于Debian、Ubuntu等基于Debian的发行版）或rpm -qa（适用于CentOS、Fedora等基于Red Hat的发行版）**
+     - **作用**：用于列出已安装的软件包。
+     - **示例（Debian）**：`dpkg -l | grep nginx`可以查看是否安装了Nginx相关的软件包。
+   - **systemctl（适用于支持systemd的发行版，如Ubuntu 18.04及以上、CentOS 7及以上等）**
+     - **作用**：用于管理系统服务，如启动、停止、重启和查看服务状态。
+     - **示例**：`sudo systemctl start nginx`启动Nginx服务，`sudo systemctl status nginx`查看Nginx服务的状态。
+6. **文件和目录操作（进入WSL后使用）**
+   - **ls**
+     - **作用**：列出目录内容。
+     - **示例**：`ls -l /home`以长格式列出`/home`目录下的文件和文件夹。
+   - **cd**
+     - **作用**：切换目录。
+     - **示例**：`cd /var/www`将当前目录切换到`/var/www`。
+   - **cp**
+     - **作用**：复制文件或目录。
+     - **示例**：`cp file1.txt file2.txt`将`file1.txt`复制为`file2.txt`；`cp -r dir1 dir2`将目录`dir1`及其内容复制到`dir2`。
+   - **mv**
+     - **作用**：移动文件或目录，也可以用于重命名。
+     - **示例**：`mv file1.txt /tmp`将`file1.txt`移动到`/tmp`目录；`mv oldname.txt newname.txt`将`oldname.txt`重命名为`newname.txt`。
+   - **rm**
+     - **作用**：删除文件或目录。
+     - **示例**：`rm file1.txt`删除`file1.txt`；`rm -r dir1`删除目录`dir1`及其内容。
+   - **sudo passwd root**
+     - **作用**：为`root`用户设置密码。

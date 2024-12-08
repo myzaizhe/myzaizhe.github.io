@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html data-color-mode="light" data-dark-theme="dark" data-light-theme="light" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href='https://mirrors.sustech.edu.cn/cdnjs/ajax/libs/Primer/21.0.7/primer.css' rel='stylesheet' />
+    
+    <link rel="icon" href="https://github.githubassets.com/favicons/favicon.svg"><script>
+        let theme = localStorage.getItem("meek_theme") || "light";
+        document.documentElement.setAttribute("data-color-mode", theme);
+    </script>
+<meta name="description" content="1. **安装与初始化相关命令**
+   - **wsl --install**
+     - **作用**：在Windows系统上安装Windows Subsystem for Linux（WSL）以及默认的Linux发行版（通常是Ubuntu）。">
+<meta property="og:title" content="【WSl】常用命令">
+<meta property="og:description" content="1. **安装与初始化相关命令**
+   - **wsl --install**
+     - **作用**：在Windows系统上安装Windows Subsystem for Linux（WSL）以及默认的Linux发行版（通常是Ubuntu）。">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://myzaizhe.github.io/post/%E3%80%90WSl%E3%80%91-chang-yong-ming-ling.html">
+<meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
+<title>【WSl】常用命令</title>
+
+
+
+</head>
+<style>
+body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;padding: 45px;font-size: 16px;font-family: sans-serif;line-height: 1.25;}
+#header{display:flex;padding-bottom:8px;border-bottom: 1px solid var(--borderColor-muted, var(--color-border-muted));margin-bottom: 16px;}
+#footer {margin-top:64px; text-align: center;font-size: small;}
+
+</style>
+
+<style>
+.postTitle{margin: auto 0;font-size:40px;font-weight:bold;}
+.title-right{display:flex;margin:auto 0 0 auto;}
+.title-right .circle{padding: 14px 16px;margin-right:8px;}
+#postBody{border-bottom: 1px solid var(--color-border-default);padding-bottom:36px;}
+#postBody hr{height:2px;}
+#cmButton{height:48px;margin-top:48px;}
+#comments{margin-top:64px;}
+.g-emoji{font-size:24px;}
+@media (max-width: 600px) {
+    body {padding: 8px;}
+    .postTitle{font-size:24px;}
+}
+
+</style>
+
+
+
+
+<body>
+    <div id="header">
+<h1 class="postTitle">【WSl】常用命令</h1>
+<div class="title-right">
+    <a href="https://myzaizhe.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathHome" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+    <a href="https://github.com/myzaizhe/myzaizhe.github.io/issues/1" target="_blank" class="btn btn-invisible circle" title="Issue">
+        <svg class="octicon" width="16" height="16">
+            <path id="pathIssue" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+    
+
+    <a class="btn btn-invisible circle" onclick="modeSwitch();" title="切换主题">
+        <svg class="octicon" width="16" height="16" >
+            <path id="themeSwitch" fill-rule="evenodd"></path>
+        </svg>
+    </a>
+
+</div>
+</div>
+    <div id="content">
+<div class="markdown-body" id="postBody"><ol>
+<li><strong>安装与初始化相关命令</strong>
+<ul>
+<li><strong>wsl --install</strong>
+<ul>
+<li><strong>作用</strong>：在Windows系统上安装Windows Subsystem for Linux（WSL）以及默认的Linux发行版（通常是Ubuntu）。这是一种快速开始使用WSL的方式，会自动下载和安装必要的组件。</li>
+<li><strong>示例</strong>：在具有管理员权限的命令提示符或PowerShell中运行<code class="notranslate">wsl --install</code>来安装WSL。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>发行版管理命令</strong>
+<ul>
+<li><strong>wsl --list - -online</strong>
+<ul>
+<li><strong>作用</strong>：列出在Windows应用商店中可用的WSL发行版。这可以帮助你选择想要安装的其他Linux发行版。</li>
+<li><strong>示例</strong>：<code class="notranslate">wsl --list - -online</code>会显示所有可以通过商店安装的WSL发行版名称、版本等信息。</li>
+</ul>
+</li>
+<li><strong>wsl --import &lt;发行版名称&gt; &lt;安装路径&gt; &lt;文件系统文件路径&gt;</strong>
+<ul>
+<li><strong>作用</strong>：从自定义的文件系统文件（如.tar文件）导入一个WSL发行版。这对于在没有网络连接或者使用自定义镜像的情况下安装发行版很有用。</li>
+<li><strong>示例</strong>：<code class="notranslate">wsl --import MyCustomUbuntu "C:\WSL\MyCustomUbuntu" "C:\WSL\Ubuntu.tar"</code>可以将名为<code class="notranslate">MyCustomUbuntu</code>的发行版导入到指定路径，其文件系统数据来自<code class="notranslate">Ubuntu.tar</code>文件。</li>
+</ul>
+</li>
+<li><strong>wsl --export &lt;发行版名称&gt; &lt;导出文件路径&gt;</strong>
+<ul>
+<li><strong>作用</strong>：将指定的WSL发行版导出为一个.tar文件，可用于备份或在其他机器上安装相同的发行版。</li>
+<li><strong>示例</strong>：<code class="notranslate">wsl --export Ubuntu "C:\WSL\UbuntuBackup.tar"</code>将Ubuntu发行版导出为一个名为<code class="notranslate">UbuntuBackup.tar</code>的备份文件。</li>
+</ul>
+</li>
+<li><strong>wsl -l（或wsl --list）</strong>
+<ul>
+<li><strong>作用</strong>：列出已安装的WSL发行版。</li>
+<li><strong>示例</strong>：<code class="notranslate">wsl -l -v</code>可以详细列出所有已安装的WSL发行版，包括状态（正在运行或已停止）、版本等信息。</li>
+</ul>
+</li>
+<li><strong>wsl -s（或wsl --set - default）</strong>
+<ul>
+<li><strong>作用</strong>：设置默认的WSL发行版。当在命令提示符中只输入<code class="notranslate">wsl</code>时，会启动这个默认的发行版。</li>
+<li><strong>示例</strong>：<code class="notranslate">wsl -s Ubuntu - 20.04</code>将Ubuntu - 20.04设置为默认的WSL发行版。</li>
+</ul>
+</li>
+<li><strong>wsl -t（或wsl --terminate）</strong>
+<ul>
+<li><strong>作用</strong>：终止指定的WSL发行版。这在发行版无响应或需要强制关闭时很有用。</li>
+<li><strong>示例</strong>：<code class="notranslate">wsl -t Debian</code>会终止Debian这个WSL发行版。</li>
+</ul>
+</li>
+<li><strong>wsl --shutdown</strong>
+<ul>
+<li><strong>作用</strong>：关闭所有正在运行的WSL发行版。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>运行和交互命令</strong>
+<ul>
+<li><strong>wsl - -distribution &lt;发行版名称&gt; - -user &lt;用户名&gt;</strong>
+<ul>
+<li><strong>作用</strong>：以指定的用户身份启动特定的WSL发行版。这在需要以非默认用户登录到WSL发行版时很有用。</li>
+<li><strong>示例</strong>：<code class="notranslate">wsl - -distribution Ubuntu - -user myuser</code>会以<code class="notranslate">myuser</code>用户身份启动Ubuntu发行版。</li>
+</ul>
+</li>
+<li><strong>wsl - -exec &lt;发行版名称&gt; &lt;命令&gt;</strong>
+<ul>
+<li><strong>作用</strong>：在指定的WSL发行版中执行一个命令，而不启动完整的交互式会话。这对于自动化脚本或在WSL中运行单个任务很方便。</li>
+<li><strong>示例</strong>：<code class="notranslate">wsl - -exec Ubuntu "apt - get update"</code>会在Ubuntu发行版中执行<code class="notranslate">apt - get update</code>命令。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>配置和调整命令</strong>
+<ul>
+<li><strong>wsl - -set - version &lt;发行版名称&gt; &lt;版本号&gt;</strong>
+<ul>
+<li><strong>作用</strong>：设置指定WSL发行版的WSL版本（WSL 1或WSL 2）。WSL 2通常提供更好的性能和功能，但可能需要更多的系统资源。</li>
+<li><strong>示例</strong>：<code class="notranslate">wsl - -set - version Ubuntu 2</code>将Ubuntu发行版设置为WSL 2版本。</li>
+</ul>
+</li>
+<li><strong>wsl - -config</strong>
+<ul>
+<li><strong>作用</strong>：用于配置WSL的全局设置，如默认的WSL版本、是否自动更新等。</li>
+<li><strong>示例</strong>：可以通过<code class="notranslate">wsl - -config</code>相关的参数来调整WSL的整体行为。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>在WSL发行版内部操作命令（进入WSL后使用）</strong>
+<ul>
+<li><strong>apt-get（适用于Debian、Ubuntu等基于Debian的发行版）或yum（适用于CentOS、Fedora等基于Red Hat的发行版）</strong>
+<ul>
+<li><strong>作用</strong>：用于在相应的Linux发行版中安装、更新和删除软件包。</li>
+<li><strong>示例（Ubuntu）</strong>：
+<ul>
+<li>安装软件包：<code class="notranslate">sudo apt - get install nginx</code>安装Nginx服务器。</li>
+<li>更新软件包列表：<code class="notranslate">sudo apt - get update</code>。</li>
+<li>升级已安装的软件包：<code class="notranslate">sudo apt - get upgrade</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>dpkg -l（适用于Debian、Ubuntu等基于Debian的发行版）或rpm -qa（适用于CentOS、Fedora等基于Red Hat的发行版）</strong>
+<ul>
+<li><strong>作用</strong>：用于列出已安装的软件包。</li>
+<li><strong>示例（Debian）</strong>：<code class="notranslate">dpkg -l | grep nginx</code>可以查看是否安装了Nginx相关的软件包。</li>
+</ul>
+</li>
+<li><strong>systemctl（适用于支持systemd的发行版，如Ubuntu 18.04及以上、CentOS 7及以上等）</strong>
+<ul>
+<li><strong>作用</strong>：用于管理系统服务，如启动、停止、重启和查看服务状态。</li>
+<li><strong>示例</strong>：<code class="notranslate">sudo systemctl start nginx</code>启动Nginx服务，<code class="notranslate">sudo systemctl status nginx</code>查看Nginx服务的状态。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>文件和目录操作（进入WSL后使用）</strong>
+<ul>
+<li><strong>ls</strong>
+<ul>
+<li><strong>作用</strong>：列出目录内容。</li>
+<li><strong>示例</strong>：<code class="notranslate">ls -l /home</code>以长格式列出<code class="notranslate">/home</code>目录下的文件和文件夹。</li>
+</ul>
+</li>
+<li><strong>cd</strong>
+<ul>
+<li><strong>作用</strong>：切换目录。</li>
+<li><strong>示例</strong>：<code class="notranslate">cd /var/www</code>将当前目录切换到<code class="notranslate">/var/www</code>。</li>
+</ul>
+</li>
+<li><strong>cp</strong>
+<ul>
+<li><strong>作用</strong>：复制文件或目录。</li>
+<li><strong>示例</strong>：<code class="notranslate">cp file1.txt file2.txt</code>将<code class="notranslate">file1.txt</code>复制为<code class="notranslate">file2.txt</code>；<code class="notranslate">cp -r dir1 dir2</code>将目录<code class="notranslate">dir1</code>及其内容复制到<code class="notranslate">dir2</code>。</li>
+</ul>
+</li>
+<li><strong>mv</strong>
+<ul>
+<li><strong>作用</strong>：移动文件或目录，也可以用于重命名。</li>
+<li><strong>示例</strong>：<code class="notranslate">mv file1.txt /tmp</code>将<code class="notranslate">file1.txt</code>移动到<code class="notranslate">/tmp</code>目录；<code class="notranslate">mv oldname.txt newname.txt</code>将<code class="notranslate">oldname.txt</code>重命名为<code class="notranslate">newname.txt</code>。</li>
+</ul>
+</li>
+<li><strong>rm</strong>
+<ul>
+<li><strong>作用</strong>：删除文件或目录。</li>
+<li><strong>示例</strong>：<code class="notranslate">rm file1.txt</code>删除<code class="notranslate">file1.txt</code>；<code class="notranslate">rm -r dir1</code>删除目录<code class="notranslate">dir1</code>及其内容。</li>
+</ul>
+</li>
+<li><strong>sudo passwd root</strong>
+<ul>
+<li><strong>作用</strong>：为<code class="notranslate">root</code>用户设置密码。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol></div>
+<div style="font-size:small;margin-top:8px;float:right;"></div>
+
+<button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
+<div class="comments" id="comments"></div>
+
+</div>
+    <div id="footer"><div id="footer1">Copyright © <span id="copyrightYear"></span> <a href="https://myzaizhe.github.io">Blog Title</a></div>
+<div id="footer2">
+    <span id="runday"></span><span>Powered by <a href="https://meekdai.com/Gmeek.html" target="_blank">Gmeek</a></span>
+</div>
+
+<script>
+var now=new Date();
+document.getElementById("copyrightYear").innerHTML=now.getFullYear();
+
+if(""!=""){
+    var startSite=new Date("");
+    var diff=now.getTime()-startSite.getTime();
+    var diffDay=Math.floor(diff/(1000*60*60*24));
+    document.getElementById("runday").innerHTML="网站运行"+diffDay+"天"+" • ";
+}
+</script></div>
+</body>
+<script>
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var utterancesLoad=0;
+
+let themeSettings={
+    "dark": ["dark","moon","#00f0ff","dark-blue"],
+    "light": ["light","sun","#ff5000","github-light"],
+    "auto": ["auto","sync","","preferred-color-scheme"]
+};
+function changeTheme(mode, icon, color, utheme){
+    document.documentElement.setAttribute("data-color-mode",mode);
+    document.getElementById("themeSwitch").setAttribute("d",value=IconList[icon]);
+    document.getElementById("themeSwitch").parentNode.style.color=color;
+    if(utterancesLoad==1){utterancesTheme(utheme);}
+}
+function modeSwitch(){
+    let currentMode=document.documentElement.getAttribute('data-color-mode');
+    let newMode = currentMode === "light" ? "dark" : currentMode === "dark" ? "auto" : "light";
+    localStorage.setItem("meek_theme", newMode);
+    if(themeSettings[newMode]){
+        changeTheme(...themeSettings[newMode]);
+    }
+}
+function utterancesTheme(theme){
+    const message={type:'set-theme',theme: theme};
+    const iframe=document.getElementsByClassName('utterances-frame')[0];
+    iframe.contentWindow.postMessage(message,'https://utteranc.es');
+}
+if(themeSettings[theme]){changeTheme(...themeSettings[theme]);}
+console.log("\n %c Gmeek last https://github.com/Meekdai/Gmeek \n","padding:5px 0;background:#02d81d;color:#fff");
+</script>
+
+<script>
+document.getElementById("pathHome").setAttribute("d",IconList["home"]);
+document.getElementById("pathIssue").setAttribute("d",IconList["github"]);
+
+
+
+function openComments(){
+    cm=document.getElementById("comments");
+    cmButton=document.getElementById("cmButton");
+    cmButton.innerHTML="loading";
+    span=document.createElement("span");
+    span.setAttribute("class","AnimatedEllipsis");
+    cmButton.appendChild(span);
+
+    script=document.createElement("script");
+    script.setAttribute("src","https://utteranc.es/client.js");
+    script.setAttribute("repo","myzaizhe/myzaizhe.github.io");
+    script.setAttribute("issue-term","title");
+    
+    if(localStorage.getItem("meek_theme")=="dark"){script.setAttribute("theme","dark-blue");}
+    else if(localStorage.getItem("meek_theme")=="light") {script.setAttribute("theme","github-light");}
+    else{script.setAttribute("theme","preferred-color-scheme");}
+    
+    script.setAttribute("crossorigin","anonymous");
+    script.setAttribute("async","");
+    cm.appendChild(script);
+
+    int=self.setInterval("iFrameLoading()",200);
+}
+
+function iFrameLoading(){
+    var utterances=document.getElementsByClassName('utterances');
+    if(utterances.length==1){
+        if(utterances[0].style.height!=""){
+            utterancesLoad=1;
+            int=window.clearInterval(int);
+            document.getElementById("cmButton").style.display="none";
+            console.log("utterances Load OK");
+        }
+    }
+}
+
+
+
+</script>
+
+
+</html>
