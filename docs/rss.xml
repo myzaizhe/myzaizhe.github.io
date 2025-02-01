@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Blog Title</title><link>https://myzaizhe.github.io</link><description>Blog description</description><copyright>Blog Title</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://myzaizhe.github.io</link></image><lastBuildDate>Fri, 24 Jan 2025 02:03:40 +0000</lastBuildDate><managingEditor>Blog Title</managingEditor><ttl>60</ttl><webMaster>Blog Title</webMaster><item><title>【Docker】常用命令</title><link>https://myzaizhe.github.io/post/%E3%80%90Docker%E3%80%91-chang-yong-ming-ling.html</link><description>### 1. Docker 基础命令
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>Blog Title</title><link>https://myzaizhe.github.io</link><description>Blog description</description><copyright>Blog Title</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://myzaizhe.github.io</link></image><lastBuildDate>Sat, 01 Feb 2025 05:54:24 +0000</lastBuildDate><managingEditor>Blog Title</managingEditor><ttl>60</ttl><webMaster>Blog Title</webMaster><item><title>【Docker】常用命令</title><link>https://myzaizhe.github.io/post/%E3%80%90Docker%E3%80%91-chang-yong-ming-ling.html</link><description>### 1. Docker 基础命令
 
 #### 查看 Docker 版本
 
@@ -9,7 +9,14 @@ docker version
 
 该命令会显示 Docker 客户端和服务端的版本信息。</description><guid isPermaLink="true">https://myzaizhe.github.io/post/%E3%80%90Docker%E3%80%91-chang-yong-ming-ling.html</guid><pubDate>Fri, 24 Jan 2025 02:03:14 +0000</pubDate></item><item><title>【frp】内网穿透</title><link>https://myzaizhe.github.io/post/%E3%80%90frp%E3%80%91-nei-wang-chuan-tou.html</link><description>1. **FRP简介**&#13;
 &#13;
-   - frp 是一款高性能的反向代理应用，专注于内网穿透。</description><guid isPermaLink="true">https://myzaizhe.github.io/post/%E3%80%90frp%E3%80%91-nei-wang-chuan-tou.html</guid><pubDate>Sun, 08 Dec 2024 06:50:05 +0000</pubDate></item><item><title>【git】常用命令</title><link>https://myzaizhe.github.io/post/%E3%80%90git%E3%80%91-chang-yong-ming-ling.html</link><description>1. **配置命令**&#13;
-   - `git config`：用于配置Git，例如设置用户姓名和邮箱。</description><guid isPermaLink="true">https://myzaizhe.github.io/post/%E3%80%90git%E3%80%91-chang-yong-ming-ling.html</guid><pubDate>Sun, 08 Dec 2024 02:57:27 +0000</pubDate></item><item><title>【WSl】常用命令</title><link>https://myzaizhe.github.io/post/%E3%80%90WSl%E3%80%91-chang-yong-ming-ling.html</link><description>1. **安装与初始化相关命令**&#13;
+   - frp 是一款高性能的反向代理应用，专注于内网穿透。</description><guid isPermaLink="true">https://myzaizhe.github.io/post/%E3%80%90frp%E3%80%91-nei-wang-chuan-tou.html</guid><pubDate>Sun, 08 Dec 2024 06:50:05 +0000</pubDate></item><item><title>【git】常用命令</title><link>https://myzaizhe.github.io/post/%E3%80%90git%E3%80%91-chang-yong-ming-ling.html</link><description>### 1. 仓库操作
+
+#### 初始化仓库
+
+```bash
+git init
+```
+
+在当前目录下创建一个新的 Git 仓库。</description><guid isPermaLink="true">https://myzaizhe.github.io/post/%E3%80%90git%E3%80%91-chang-yong-ming-ling.html</guid><pubDate>Sun, 08 Dec 2024 02:57:27 +0000</pubDate></item><item><title>【WSl】常用命令</title><link>https://myzaizhe.github.io/post/%E3%80%90WSl%E3%80%91-chang-yong-ming-ling.html</link><description>1. **安装与初始化相关命令**&#13;
    - **wsl --install**&#13;
      - **作用**：在Windows系统上安装Windows Subsystem for Linux（WSL）以及默认的Linux发行版（通常是Ubuntu）。</description><guid isPermaLink="true">https://myzaizhe.github.io/post/%E3%80%90WSl%E3%80%91-chang-yong-ming-ling.html</guid><pubDate>Sun, 08 Dec 2024 02:06:01 +0000</pubDate></item></channel></rss>

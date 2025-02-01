@@ -10,16 +10,30 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="1. **配置命令**
-   - `git config`：用于配置Git，例如设置用户姓名和邮箱。">
+<meta name="description" content="### 1. 仓库操作
+
+#### 初始化仓库
+
+```bash
+git init
+```
+
+在当前目录下创建一个新的 Git 仓库。">
 <meta property="og:title" content="【git】常用命令">
-<meta property="og:description" content="1. **配置命令**
-   - `git config`：用于配置Git，例如设置用户姓名和邮箱。">
+<meta property="og:description" content="### 1. 仓库操作
+
+#### 初始化仓库
+
+```bash
+git init
+```
+
+在当前目录下创建一个新的 Git 仓库。">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://myzaizhe.github.io/post/%E3%80%90git%E3%80%91-chang-yong-ming-ling.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
 <title>【git】常用命令</title>
-
+<link href="//unpkg.com/@wooorm/starry-night@2.1.1/style/both.css" rel="stylesheet" />
 
 
 </head>
@@ -43,7 +57,17 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
     body {padding: 8px;}
     .postTitle{font-size:24px;}
 }
-
+.copy-feedback {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    color: var(--color-fg-on-emphasis);
+    background-color: var(--color-fg-muted);
+    border-radius: 3px;
+    padding: 5px 8px;
+    font-size: 12px;
+}
 </style>
 
 
@@ -75,51 +99,127 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><ol>
-<li><strong>配置命令</strong>
-<ul>
-<li><code class="notranslate">git config</code>：用于配置Git，例如设置用户姓名和邮箱。
-<ul>
-<li><code class="notranslate">git config --global user.name "Your Name"</code>：设置全局用户名。</li>
-<li><code class="notranslate">git config --global user.email "your@email.com"</code>：设置全局用户邮箱。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><strong>仓库初始化和克隆命令</strong>
-<ul>
-<li><code class="notranslate">git init</code>：在当前目录初始化一个新的Git仓库，会创建一个隐藏的<code class="notranslate">.git</code>目录来管理仓库信息。</li>
-<li><code class="notranslate">git clone [repository - url]</code>：克隆一个远程仓库到本地，例如<code class="notranslate">git clone https://github.com/username/repository.git</code>。</li>
-</ul>
-</li>
-<li><strong>基本文件操作命令</strong>
-<ul>
-<li><code class="notranslate">git add [file - name]</code>或<code class="notranslate">git add.</code>：将文件添加到暂存区。前者是添加指定文件，后者是添加当前目录下所有更改的文件。</li>
-<li><code class="notranslate">git commit -m "commit - message"</code>：将暂存区的文件提交到本地仓库，<code class="notranslate">commit - message</code>是提交说明，用于记录本次提交的内容。</li>
-<li><code class="notranslate">git status</code>：查看仓库的状态，包括文件的修改、暂存情况等。</li>
-</ul>
-</li>
-<li><strong>分支操作命令</strong>
-<ul>
-<li><code class="notranslate">git branch</code>：查看本地分支列表。</li>
-<li><code class="notranslate">git branch [branch - name]</code>：创建一个新的本地分支。</li>
-<li><code class="notranslate">git checkout [branch - name]</code>：切换到指定的分支。</li>
-<li><code class="notranslate">git merge [branch - name]</code>：将指定分支合并到当前分支。</li>
-</ul>
-</li>
-<li><strong>远程仓库操作命令</strong>
-<ul>
-<li><code class="notranslate">git remote add [remote - name] [remote - repository - url]</code>：添加一个远程仓库，例如<code class="notranslate">git remote add origin https://github.com/username/repository.git</code>，其中<code class="notranslate">origin</code>是远程仓库别名，后面是远程仓库的URL。</li>
-<li><code class="notranslate">git push [remote - name] [branch - name]</code>：将本地分支推送到远程仓库，例如<code class="notranslate">git push origin master</code>。</li>
-<li><code class="notranslate">git pull [remote - name] [branch - name]</code>：从远程仓库拉取并合并指定分支的最新内容到本地分支，例如<code class="notranslate">git pull origin master</code>。</li>
-</ul>
-</li>
-<li><strong>查看历史记录命令</strong>
-<ul>
-<li><code class="notranslate">git log</code>：查看提交历史记录，包括作者、日期、提交信息等内容。可以使用<code class="notranslate">git log --oneline</code>来查看简洁的提交记录，一行显示一个提交。</li>
-</ul>
-</li>
-</ol></div>
+<div class="markdown-body" id="postBody"><h3>1. 仓库操作</h3>
+<h4>初始化仓库</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git init</pre></div>
+<p>在当前目录下创建一个新的 Git 仓库。</p>
+<h4>克隆远程仓库</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git clone <span class="pl-k">&lt;</span>远程仓库地址<span class="pl-k">&gt;</span> [本地目录名]</pre></div>
+<p>例如 <code class="notranslate">git clone https://github.com/user/repo.git myrepo</code> 会将远程仓库克隆到本地的 <code class="notranslate">myrepo</code> 目录。</p>
+<h4>设置用户名和邮箱</h4>
+<pre class="notranslate"><code class="notranslate">git config --global user.name "你的用户名"
+git config --global user.email "你的邮箱"
+</code></pre>
+<h4>设置全局的 HTTP 代理</h4>
+<pre class="notranslate"><code class="notranslate">git config --global http.proxy http://127.0.0.1:[port]
+git config --global https.proxy http://127.0.0.1:[port]
+</code></pre>
+<h4>查看配置信息</h4>
+<pre class="notranslate"><code class="notranslate">git config --list
+</code></pre>
+<h3>2. 文件操作</h3>
+<h4>添加文件到暂存区</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git add <span class="pl-k">&lt;</span>文件路径<span class="pl-k">&gt;</span></pre></div>
+<p>可添加单个文件，也可使用 <code class="notranslate">.</code> 来添加当前目录下的所有文件，如 <code class="notranslate">git add .</code>。</p>
+<h4>从暂存区移除文件</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git rm --cached <span class="pl-k">&lt;</span>文件路径<span class="pl-k">&gt;</span></pre></div>
+<p>该操作只是将文件从暂存区移除，不会删除本地文件。</p>
+<h4>移动或重命名文件</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git mv <span class="pl-k">&lt;</span>原文件路径<span class="pl-k">&gt;</span> <span class="pl-k">&lt;</span>新文件路径<span class="pl-k">&gt;</span></pre></div>
+<h3>3. 提交操作</h3>
+<h4>提交暂存区的文件到本地仓库</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git commit -m <span class="pl-s"><span class="pl-pds">"</span>提交说明<span class="pl-pds">"</span></span></pre></div>
+<p>使用 <code class="notranslate">-a</code> 选项可以将所有已跟踪文件的修改直接提交，无需先 <code class="notranslate">git add</code>，如 <code class="notranslate">git commit -am "更新代码"</code>。</p>
+<h4>修改上一次提交</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git commit --amend -m <span class="pl-s"><span class="pl-pds">"</span>新的提交说明<span class="pl-pds">"</span></span></pre></div>
+<p>如果修改了文件内容，还可以在 <code class="notranslate">--amend</code> 时将新修改的内容合并到上一次提交中。</p>
+<h3>4. 查看状态和日志</h3>
+<h4>查看文件状态</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git status</pre></div>
+<p>显示工作区、暂存区文件的状态，如哪些文件被修改、添加或删除。</p>
+<h4>查看提交日志</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git log</pre></div>
+<p>显示详细的提交历史，可使用 <code class="notranslate">--oneline</code> 选项简化输出，如 <code class="notranslate">git log --oneline</code>。</p>
+<h4>查看文件修改差异</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git diff</pre></div>
+<p>查看工作区与暂存区文件的差异；使用 <code class="notranslate">git diff --staged</code> 查看暂存区与最新提交的差异。</p>
+<h3>5. 分支管理</h3>
+<h4>查看分支</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git branch</pre></div>
+<p>列出本地分支；使用 <code class="notranslate">-r</code> 查看远程分支，<code class="notranslate">-a</code> 查看所有分支。</p>
+<h4>创建分支</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git branch <span class="pl-k">&lt;</span>分支名<span class="pl-k">&gt;</span></pre></div>
+<p>例如 <code class="notranslate">git branch new-feature</code> 创建一个名为 <code class="notranslate">new-feature</code> 的分支。</p>
+<h4>切换分支</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git checkout <span class="pl-k">&lt;</span>分支名<span class="pl-k">&gt;</span></pre></div>
+<p>使用 <code class="notranslate">-b</code> 选项可以创建并切换到新分支，如 <code class="notranslate">git checkout -b new-feature</code>。</p>
+<h4>合并分支</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git merge <span class="pl-k">&lt;</span>要合并进来的分支名<span class="pl-k">&gt;</span></pre></div>
+<p>例如在 <code class="notranslate">master</code> 分支上执行 <code class="notranslate">git merge new-feature</code> 会将 <code class="notranslate">new-feature</code> 分支的修改合并到 <code class="notranslate">master</code> 分支。</p>
+<h4>删除分支</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git branch -d <span class="pl-k">&lt;</span>分支名<span class="pl-k">&gt;</span></pre></div>
+<p>使用 <code class="notranslate">-D</code> 选项可以强制删除未合并的分支。</p>
+<h3>6. 远程仓库交互</h3>
+<h4>添加远程仓库</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git remote add <span class="pl-k">&lt;</span>远程仓库别名<span class="pl-k">&gt;</span> <span class="pl-k">&lt;</span>远程仓库地址<span class="pl-k">&gt;</span></pre></div>
+<p>常见的别名是 <code class="notranslate">origin</code>，如 <code class="notranslate">git remote add origin https://github.com/user/repo.git</code>。</p>
+<h4>修改远程仓库</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git remote set-url <span class="pl-k">&lt;</span>远程仓库别名<span class="pl-k">&gt;</span> <span class="pl-k">&lt;</span>远程仓库地址<span class="pl-k">&gt;</span></pre></div>
+<h4>查看远程仓库信息</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git remote -v</pre></div>
+<p>显示远程仓库的别名和对应的地址。</p>
+<h4>从远程仓库拉取代码</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git pull <span class="pl-k">&lt;</span>远程仓库别名<span class="pl-k">&gt;</span> <span class="pl-k">&lt;</span>分支名<span class="pl-k">&gt;</span></pre></div>
+<p>例如 <code class="notranslate">git pull origin master</code> 从 <code class="notranslate">origin</code> 远程仓库的 <code class="notranslate">master</code> 分支拉取代码并合并到本地。</p>
+<h4>推送本地代码到远程仓库</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git push <span class="pl-k">&lt;</span>远程仓库别名<span class="pl-k">&gt;</span> <span class="pl-k">&lt;</span>分支名<span class="pl-k">&gt;</span></pre></div>
+<p>如 <code class="notranslate">git push origin master</code> 将本地 <code class="notranslate">master</code> 分支的代码推送到 <code class="notranslate">origin</code> 远程仓库的 <code class="notranslate">master</code> 分支。</p>
+<h4>删除远程分支</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git push <span class="pl-k">&lt;</span>远程仓库别名<span class="pl-k">&gt;</span> --delete <span class="pl-k">&lt;</span>分支名<span class="pl-k">&gt;</span></pre></div>
+<p>例如 <code class="notranslate">git push origin --delete new-feature</code> 删除 <code class="notranslate">origin</code> 远程仓库的 <code class="notranslate">new-feature</code> 分支。</p>
+<h3>7. 标签管理</h3>
+<h4>创建标签</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git tag <span class="pl-k">&lt;</span>标签名<span class="pl-k">&gt;</span></pre></div>
+<p>创建轻量级标签；使用 <code class="notranslate">-a</code> 选项可以创建带注释的标签，如 <code class="notranslate">git tag -a v1.0 -m "版本 1.0 发布"</code>。</p>
+<h4>查看标签</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git tag</pre></div>
+<p>列出所有标签；使用 <code class="notranslate">git show &lt;标签名&gt;</code> 查看标签的详细信息。</p>
+<h4>推送标签到远程仓库</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git push <span class="pl-k">&lt;</span>远程仓库别名<span class="pl-k">&gt;</span> <span class="pl-k">&lt;</span>标签名<span class="pl-k">&gt;</span></pre></div>
+<p>若要推送所有标签，使用 <code class="notranslate">git push &lt;远程仓库别名&gt; --tags</code>。</p>
+<h4>删除本地标签</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git tag -d <span class="pl-k">&lt;</span>标签名<span class="pl-k">&gt;</span></pre></div>
+<h4>删除远程标签</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git push <span class="pl-k">&lt;</span>远程仓库别名<span class="pl-k">&gt;</span> --delete <span class="pl-k">&lt;</span>标签名<span class="pl-k">&gt;</span></pre></div>
+<h3>8. 撤销操作</h3>
+<h4>撤销工作区的修改</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git checkout -- <span class="pl-k">&lt;</span>文件路径<span class="pl-k">&gt;</span></pre></div>
+<p>将文件恢复到上一次提交时的状态。</p>
+<h4>撤销暂存区的文件</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git reset HEAD <span class="pl-k">&lt;</span>文件路径<span class="pl-k">&gt;</span></pre></div>
+<p>将文件从暂存区移除，但保留工作区的修改。</p>
+<h4>回退到指定提交</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git reset --hard <span class="pl-k">&lt;</span>提交哈希值<span class="pl-k">&gt;</span></pre></div>
+<p><code class="notranslate">--hard</code> 选项会同时修改工作区和暂存区；使用 <code class="notranslate">--soft</code> 只修改提交历史，不改变暂存区和工作区。</p>
+<h3>9. 贮藏操作</h3>
+<h4>贮藏当前修改</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git stash</pre></div>
+<p>将工作区和暂存区的修改贮藏起来，使工作区回到干净状态。</p>
+<h4>查看贮藏列表</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git stash list</pre></div>
+<h4>应用贮藏</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git stash apply [贮藏编号]</pre></div>
+<p>不指定贮藏编号则应用最近一次的贮藏；使用 <code class="notranslate">git stash pop</code> 应用并删除贮藏。</p>
+<h4>删除贮藏</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git stash drop [贮藏编号]</pre></div>
+<p>不指定编号则删除最近一次的贮藏。</p>
+<h3>10. 其他命令</h3>
+<h4>查找包含特定内容的提交</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git log -S <span class="pl-s"><span class="pl-pds">"</span>&lt;查找内容&gt;<span class="pl-pds">"</span></span></pre></div>
+<h4>显示某个文件的修改历史</h4>
+<div class="highlight highlight-source-shell"><pre class="notranslate">git blame <span class="pl-k">&lt;</span>文件路径<span class="pl-k">&gt;</span></pre></div>
+<p>显示文件每行内容的最后修改者和提交信息。</p>
+<p>这些命令涵盖了 Git 日常使用的大部分场景，你可以根据具体需求灵活运用它们来进行高效的版本控制。</p></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
 <button class="btn btn-block" type="button" onclick="openComments()" id="cmButton">评论</button>
@@ -144,7 +244,7 @@ if(""!=""){
 </script></div>
 </body>
 <script>
-var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z'};
+var IconList={'sun': 'M8 10.5a2.5 2.5 0 100-5 2.5 2.5 0 000 5zM8 12a4 4 0 100-8 4 4 0 000 8zM8 0a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V.75A.75.75 0 018 0zm0 13a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0v-1.5A.75.75 0 018 13zM2.343 2.343a.75.75 0 011.061 0l1.06 1.061a.75.75 0 01-1.06 1.06l-1.06-1.06a.75.75 0 010-1.06zm9.193 9.193a.75.75 0 011.06 0l1.061 1.06a.75.75 0 01-1.06 1.061l-1.061-1.06a.75.75 0 010-1.061zM16 8a.75.75 0 01-.75.75h-1.5a.75.75 0 010-1.5h1.5A.75.75 0 0116 8zM3 8a.75.75 0 01-.75.75H.75a.75.75 0 010-1.5h1.5A.75.75 0 013 8zm10.657-5.657a.75.75 0 010 1.061l-1.061 1.06a.75.75 0 11-1.06-1.06l1.06-1.06a.75.75 0 011.06 0zm-9.193 9.193a.75.75 0 010 1.06l-1.06 1.061a.75.75 0 11-1.061-1.06l1.06-1.061a.75.75 0 011.061 0z', 'moon': 'M9.598 1.591a.75.75 0 01.785-.175 7 7 0 11-8.967 8.967.75.75 0 01.961-.96 5.5 5.5 0 007.046-7.046.75.75 0 01.175-.786zm1.616 1.945a7 7 0 01-7.678 7.678 5.5 5.5 0 107.678-7.678z', 'sync': 'M1.705 8.005a.75.75 0 0 1 .834.656 5.5 5.5 0 0 0 9.592 2.97l-1.204-1.204a.25.25 0 0 1 .177-.427h3.646a.25.25 0 0 1 .25.25v3.646a.25.25 0 0 1-.427.177l-1.38-1.38A7.002 7.002 0 0 1 1.05 8.84a.75.75 0 0 1 .656-.834ZM8 2.5a5.487 5.487 0 0 0-4.131 1.869l1.204 1.204A.25.25 0 0 1 4.896 6H1.25A.25.25 0 0 1 1 5.75V2.104a.25.25 0 0 1 .427-.177l1.38 1.38A7.002 7.002 0 0 1 14.95 7.16a.75.75 0 0 1-1.49.178A5.5 5.5 0 0 0 8 2.5Z', 'home': 'M6.906.664a1.749 1.749 0 0 1 2.187 0l5.25 4.2c.415.332.657.835.657 1.367v7.019A1.75 1.75 0 0 1 13.25 15h-3.5a.75.75 0 0 1-.75-.75V9H7v5.25a.75.75 0 0 1-.75.75h-3.5A1.75 1.75 0 0 1 1 13.25V6.23c0-.531.242-1.034.657-1.366l5.25-4.2Zm1.25 1.171a.25.25 0 0 0-.312 0l-5.25 4.2a.25.25 0 0 0-.094.196v7.019c0 .138.112.25.25.25H5.5V8.25a.75.75 0 0 1 .75-.75h3.5a.75.75 0 0 1 .75.75v5.25h2.75a.25.25 0 0 0 .25-.25V6.23a.25.25 0 0 0-.094-.195Z', 'github': 'M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z', 'copy': 'M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 0 1 0 1.5h-1.5a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-1.5a.75.75 0 0 1 1.5 0v1.5A1.75 1.75 0 0 1 9.25 16h-7.5A1.75 1.75 0 0 1 0 14.25Z M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0 1 14.25 11h-7.5A1.75 1.75 0 0 1 5 9.25Zm1.75-.25a.25.25 0 0 0-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 0 0 .25-.25v-7.5a.25.25 0 0 0-.25-.25Z', 'check': 'M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z'};
 var utterancesLoad=0;
 
 let themeSettings={
@@ -217,7 +317,70 @@ function iFrameLoading(){
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const createClipboardHTML = (codeContent, additionalClasses = '') => `
+        <pre class="notranslate"><code class="notranslate">${codeContent}</code></pre>
+        <div class="clipboard-container position-absolute right-0 top-0 ${additionalClasses}">
+            <clipboard-copy class="ClipboardButton btn m-2 p-0" role="button" style="display: inherit;">
+                <svg height="16" width="16" class="octicon octicon-copy m-2"><path d="${IconList["copy"]}"></path></svg>
+                <svg height="16" width="16" class="octicon octicon-check color-fg-success m-2 d-none"><path d="${IconList["check"]}"></path></svg>
+            </clipboard-copy>
+            <div class="copy-feedback">Copied!</div>
+        </div>
+    `;
 
+    const handleCodeElements = (selector = '') => {
+        document.querySelectorAll(selector).forEach(codeElement => {
+            const codeContent = codeElement.innerHTML;
+            const newStructure = document.createElement('div');
+            newStructure.className = 'snippet-clipboard-content position-relative overflow-auto';
+            newStructure.innerHTML = createClipboardHTML(codeContent);
+
+            const parentElement = codeElement.parentElement;
+            if (selector.includes('highlight')) {
+                parentElement.insertBefore(newStructure, codeElement.nextSibling);
+                parentElement.removeChild(codeElement);
+            } else {
+                parentElement.parentElement.replaceChild(newStructure, parentElement);
+            }
+        });
+    };
+
+    handleCodeElements('pre.notranslate > code.notranslate');
+    handleCodeElements('div.highlight > pre.notranslate');
+
+    let currentFeedback = null;
+    document.querySelectorAll('clipboard-copy').forEach(copyButton => {
+        copyButton.addEventListener('click', () => {
+            const codeContent = copyButton.closest('.snippet-clipboard-content').innerText;
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = codeContent;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            const copyIcon = copyButton.querySelector('.octicon-copy');
+            const checkIcon = copyButton.querySelector('.octicon-check');
+            const copyFeedback = copyButton.nextElementSibling;
+
+            if (currentFeedback && currentFeedback !== copyFeedback) {currentFeedback.style.display = 'none';}
+            currentFeedback = copyFeedback;
+
+            copyIcon.classList.add('d-none');
+            checkIcon.classList.remove('d-none');
+            copyFeedback.style.display = 'block';
+            copyButton.style.borderColor = 'var(--color-success-fg)';
+
+            setTimeout(() => {
+                copyIcon.classList.remove('d-none');
+                checkIcon.classList.add('d-none');
+                copyFeedback.style.display = 'none';
+                copyButton.style.borderColor = '';
+            }, 2000);
+        });
+    });
+});
 
 </script>
 
